@@ -40,8 +40,7 @@
     </build>
 
     <scm>
-        <developerConnection>scm:git:git@github.com:KoudjaDany/sfg-pet-clinic.git</developerConnection>
-    <tag>sfg-pet-clinic-0.0.3</tag>
+        <developerConnection>scm:git:https://github.com/KoudjaDany/sfg-pet-clinic.git</developerConnection>
   </scm>
 
 </project>
