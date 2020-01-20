@@ -14,7 +14,7 @@
     </parent>
     <groupId>training.springframework</groupId>
     <artifactId>sfg-pet-clinic</artifactId>
-    <version>0.0.4</version>
+    <version>0.0.5-SNAPSHOT</version>
     <name>sfg-pet-clinic</name>
     <description>SFG Pet Clinic Project</description>
 
@@ -41,7 +41,7 @@
 
     <scm>
         <developerConnection>scm:git:https://github.com/KoudjaDany/sfg-pet-clinic.git</developerConnection>
-    <tag>sfg-pet-clinic-0.0.4</tag>
+    <tag>HEAD</tag>
   </scm>
 
 </project>
