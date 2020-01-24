@@ -1,9 +1,9 @@
 package training.springframework.sfgpetclinic.services.map;
 
 import training.springframework.sfgpetclinic.model.Owner;
-import training.springframework.sfgpetclinic.services.CrudService;
+import training.springframework.sfgpetclinic.services.OwnerService;
 
-public class OwnerServiceMap extends AbstractMapService<Owner,Long> implements CrudService<Owner,Long> {
+public class OwnerServiceMap extends AbstractMapService<Owner,Long> implements OwnerService {
 
 
     @Override
@@ -11,4 +11,8 @@ public class OwnerServiceMap extends AbstractMapService<Owner,Long> implements C
         return super.save(entity.getId(),entity);
     }
 
+    @Override
+    public Owner findByLastName(String lastName) {
+        return null;
+    }
 }
