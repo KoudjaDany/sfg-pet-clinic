@@ -23,10 +23,12 @@ public class OwnerServiceMap extends AbstractMapService<Owner,Long> implements O
     @Override
     public Owner save(Owner entity) {
         if (Objects.nonNull(entity)){
-            if (entity.getPets()!= null){
+            if (entity.getPets().size() > 0){
                 entity.getPets().forEach(pet -> {
-                    if (pet.getPetType().getId() == null){
-                        pet.setPetType(petTypeService.save(pet.getPetType()));
+                    if (pet.getPetType() != null){
+                        if (pet.getPetType().getId() == null){
+                            pet.setPetType(petTypeService.save(pet.getPetType()));
+                        }
                     } else {
                         throw new RuntimeException("A pet type is required");
                     }
