@@ -3,6 +3,7 @@ package training.springframework.sfgpetclinic.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.StringJoiner;
 
 @Entity
 @Table(name = "types")
@@ -17,5 +18,12 @@ public class PetType extends BaseEntity{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", PetType.class.getSimpleName() + "[", "]")
+                .add("name='" + name + "'")
+                .toString();
     }
 }

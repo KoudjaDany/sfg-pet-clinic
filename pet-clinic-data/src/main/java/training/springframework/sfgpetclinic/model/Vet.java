@@ -3,6 +3,7 @@ package training.springframework.sfgpetclinic.model;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.StringJoiner;
 
 @Entity
 @Table(name = "vets")
@@ -19,5 +20,12 @@ public class Vet extends Person {
 
     public void setSpecialties(Set<Specialty> specialties) {
         this.specialties = specialties;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Vet.class.getSimpleName() + "[", "]")
+                .add("specialties=" + specialties)
+                .toString();
     }
 }

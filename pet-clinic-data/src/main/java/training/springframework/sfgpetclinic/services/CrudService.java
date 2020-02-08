@@ -16,4 +16,8 @@ public interface CrudService<E, ID> {
     void delete(E entity);
 
     void deleteById(ID id);
+
+    default void showData(){
+        findAll().forEach(System.out::println);
+    }
 }

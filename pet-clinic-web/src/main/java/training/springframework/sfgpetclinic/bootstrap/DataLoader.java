@@ -3,10 +3,7 @@ package training.springframework.sfgpetclinic.bootstrap;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import training.springframework.sfgpetclinic.model.*;
-import training.springframework.sfgpetclinic.services.OwnerService;
-import training.springframework.sfgpetclinic.services.PetTypeService;
-import training.springframework.sfgpetclinic.services.SpecialityService;
-import training.springframework.sfgpetclinic.services.VetService;
+import training.springframework.sfgpetclinic.services.*;
 
 import java.time.LocalDate;
 
@@ -18,12 +15,14 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialityService specialityService;
+    private final VisitService visitService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialityService = specialityService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -61,6 +60,13 @@ public class DataLoader implements CommandLineRunner {
         fionasCat.setBirthDate(LocalDate.of(2015, 3, 8));
         fionasCat.setPetType(savedCatPetType);
         fionasCat.setName("Minou");
+
+        Visit catVisit = new Visit();
+        catVisit.setPet(fionasCat);
+        catVisit.setDate(LocalDate.now());
+        catVisit.setDescription("Sneeze kitty");
+
+        visitService.save(catVisit);
 
         owner.getPets().add(mikesPet);
         owner.getPets().add(fionasCat);
@@ -108,5 +114,7 @@ public class DataLoader implements CommandLineRunner {
         vetService.save(vet2);
 
         System.out.println("Vets Loaded...");
+
+        ownerService.showData();
     }
 }

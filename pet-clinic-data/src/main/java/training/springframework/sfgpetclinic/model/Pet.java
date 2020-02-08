@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.StringJoiner;
 
 @Entity
 @Table(name = "pets")
@@ -64,5 +65,16 @@ public class Pet  extends BaseEntity{
 
     public void setVisits(Set<Visit> visits) {
         this.visits = visits;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Pet.class.getSimpleName() + "[", "]")
+                .add("name='" + name + "'")
+                .add("petType=" + petType.getName())
+                .add("owner=" + owner.getFirstName())
+                .add("birthDate=" + birthDate)
+                .add("visits=" + visits)
+                .toString();
     }
 }

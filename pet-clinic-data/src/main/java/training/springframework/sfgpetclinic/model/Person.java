@@ -2,6 +2,7 @@ package training.springframework.sfgpetclinic.model;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import java.util.StringJoiner;
 
 @MappedSuperclass
 public class Person extends BaseEntity{
@@ -26,5 +27,13 @@ public class Person extends BaseEntity{
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Person.class.getSimpleName() + "[", "]")
+                .add("firstName='" + firstName + "'")
+                .add("lastName='" + lastName + "'")
+                .toString();
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.StringJoiner;
 
 @Entity
 @Table(name = "visits")
@@ -42,5 +43,14 @@ public class Visit extends BaseEntity {
 
     public void setPet(Pet pet) {
         this.pet = pet;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Visit.class.getSimpleName() + "[", "]")
+                .add("date=" + date)
+                .add("description='" + description + "'")
+                .add("pet=" + pet.getName())
+                .toString();
     }
 }

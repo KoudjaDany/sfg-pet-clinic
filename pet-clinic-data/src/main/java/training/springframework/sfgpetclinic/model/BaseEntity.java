@@ -5,6 +5,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
+import java.util.StringJoiner;
 
 @MappedSuperclass
 public class BaseEntity implements Serializable {
@@ -19,5 +20,12 @@ public class BaseEntity implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", BaseEntity.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .toString();
     }
 }
