@@ -116,5 +116,9 @@ public class DataLoader implements CommandLineRunner {
         System.out.println("Vets Loaded...");
 
         ownerService.showData();
+        vetService.showData();
+        petTypeService.showData();
+        specialityService.showData();
+        visitService.showData();
     }
 }
