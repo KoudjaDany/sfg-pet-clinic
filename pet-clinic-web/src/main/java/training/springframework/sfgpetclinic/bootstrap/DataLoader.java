@@ -61,6 +61,12 @@ public class DataLoader implements CommandLineRunner {
         fionasCat.setPetType(savedCatPetType);
         fionasCat.setName("Minou");
 
+        owner.getPets().add(mikesPet);
+        owner.getPets().add(fionasCat);
+        owner = ownerService.save(owner);
+
+        fionasCat = owner.getPets().stream().filter(pet -> "Minou".equals(pet.getName())).findFirst().get();
+
         Visit catVisit = new Visit();
         catVisit.setPet(fionasCat);
         catVisit.setDate(LocalDate.now());
@@ -68,16 +74,12 @@ public class DataLoader implements CommandLineRunner {
 
         visitService.save(catVisit);
 
-        owner.getPets().add(mikesPet);
-        owner.getPets().add(fionasCat);
-        ownerService.save(owner);
-
         Owner owner2 = new Owner();
         owner2.setFirstName("Kenfack");
         owner2.setLastName("Toto");
-        owner.setAddress("4N 24 Bonamoussadi");
-        owner.setCity("Douala");
-        owner.setTelephone("+237654987452");
+        owner2.setAddress("4N 24 Bonamoussadi");
+        owner2.setCity("Douala");
+        owner2.setTelephone("+237654987452");
 
         ownerService.save(owner2);
 

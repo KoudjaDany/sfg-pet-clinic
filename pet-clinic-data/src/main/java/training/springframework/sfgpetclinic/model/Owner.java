@@ -60,7 +60,7 @@ public class Owner extends Person {
                 .add("address='" + address + "'")
                 .add("city='" + city + "'")
                 .add("telephone='" + telephone + "'")
-                .add("pets=" + pets)
+                //.add("pets=" + pets)
                 .toString();
     }
 }
