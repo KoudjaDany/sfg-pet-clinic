@@ -2,6 +2,7 @@ package training.springframework.sfgpetclinic.bootstrap;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import training.springframework.sfgpetclinic.model.*;
 import training.springframework.sfgpetclinic.services.*;
 
@@ -26,6 +27,7 @@ public class DataLoader implements CommandLineRunner {
     }
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
         int count = petTypeService.findAll().size();
         if (count == 0) {
