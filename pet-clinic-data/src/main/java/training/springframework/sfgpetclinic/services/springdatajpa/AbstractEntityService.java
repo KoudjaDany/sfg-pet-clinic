@@ -1,4 +1,4 @@
-package training.springframework.sfgpetclinic.services.jpa;
+package training.springframework.sfgpetclinic.services.springdatajpa;
 
 import org.springframework.data.repository.CrudRepository;
 import training.springframework.sfgpetclinic.model.BaseEntity;
