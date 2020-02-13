@@ -9,12 +9,12 @@ import training.springframework.sfgpetclinic.services.VisitService;
 
 @Service
 @Profile({"default", "map"})
-public class VisitServiceMap extends AbstractMapService<Visit,Long> implements VisitService {
+public class VisitMapService extends AbstractMapService<Visit,Long> implements VisitService {
 
     private PetService petService;
     private PetTypeService petTypeService;
 
-    public VisitServiceMap(PetService petService, PetTypeService petTypeService) {
+    public VisitMapService(PetService petService, PetTypeService petTypeService) {
         this.petService = petService;
         this.petTypeService = petTypeService;
     }
