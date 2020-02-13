@@ -7,6 +7,6 @@ import training.springframework.sfgpetclinic.services.SpecialityService;
 
 @Service
 @Profile({"default", "map"})
-public class SpecialityServiceMap extends AbstractMapService<Specialty,Long> implements SpecialityService {
+public class SpecialityMapService extends AbstractMapService<Specialty,Long> implements SpecialityService {
 
 }

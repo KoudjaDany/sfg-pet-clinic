@@ -12,12 +12,12 @@ import java.util.Objects;
 
 @Service
 @Profile({"default", "map"})
-public class OwnerServiceMap extends AbstractMapService<Owner,Long> implements OwnerService {
+public class OwnerMapService extends AbstractMapService<Owner,Long> implements OwnerService {
 
     private PetService petService;
     private PetTypeService petTypeService;
 
-    public OwnerServiceMap(PetService petService, PetTypeService petTypeService) {
+    public OwnerMapService(PetService petService, PetTypeService petTypeService) {
         this.petService = petService;
         this.petTypeService = petTypeService;
     }
@@ -25,7 +25,7 @@ public class OwnerServiceMap extends AbstractMapService<Owner,Long> implements O
     @Override
     public Owner save(Owner entity) {
         if (Objects.nonNull(entity)){
-            if (entity.getPets().size() > 0){
+            if (Objects.nonNull(entity.getPets()) && entity.getPets().size() > 0){
                 entity.getPets().forEach(pet -> {
                     if (pet.getPetType() != null){
                         if (pet.getPetType().getId() == null){
@@ -49,7 +49,11 @@ public class OwnerServiceMap extends AbstractMapService<Owner,Long> implements O
 
     @Override
     public Owner findByLastName(String lastName) {
-        return null;
+        return findAll()
+                .stream()
+                .filter(owner -> lastName.equalsIgnoreCase(owner.getLastName()))
+                .findFirst()
+                .orElse(null);
     }
 
 }
