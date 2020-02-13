@@ -15,6 +15,15 @@ import java.util.Objects;
 public class OwnerMapService extends AbstractMapService<Owner,Long> implements OwnerService {
 
     private PetService petService;
+
+    public PetService getPetService() {
+        return petService;
+    }
+
+    public PetTypeService getPetTypeService() {
+        return petTypeService;
+    }
+
     private PetTypeService petTypeService;
 
     public OwnerMapService(PetService petService, PetTypeService petTypeService) {

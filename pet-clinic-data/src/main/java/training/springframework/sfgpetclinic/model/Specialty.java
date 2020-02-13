@@ -11,10 +11,16 @@ import java.util.StringJoiner;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "specialities")
 public class Specialty extends BaseEntity {
+
+    @Builder
+    public Specialty(Long id, String name, String description) {
+        super(id);
+        this.name = name;
+        this.description = description;
+    }
 
     @Column(name = "name")
     private String name;

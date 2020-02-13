@@ -11,10 +11,15 @@ import java.util.StringJoiner;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "vets")
 public class Vet extends Person {
+
+    @Builder
+    public Vet(Long id, String firstName, String lastName, Set<Specialty> specialties) {
+        super(id, firstName, lastName);
+        this.specialties = specialties;
+    }
 
     @ManyToMany
     @JoinTable(name = "vet_specialities", joinColumns = @JoinColumn(name = "vet_id"),
