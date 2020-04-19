@@ -1,5 +1,5 @@
 <!doctype html>
-<html th:fragment="layout (template, menu)">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout (template, menu)">
 
   <head>
 
@@ -17,7 +17,8 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <link rel="stylesheet" th:href="@{/resources/css/petclinic.css}"/>
+    <link rel="stylesheet" th:href="@{/resources/css/petclinic.css}"    />
+    <link rel="stylesheet" th:href="@{/resources/css/main.css}"/>
 
   </head>
 
@@ -68,27 +69,29 @@
           </div>
       </div>
   </nav>
-  <div class="container-fluid">
+  <main class="container-fluid" id="main-container">
       <div class="container xd-container">
-  
           <th:block th:include="${template}"/>
-
-        <br/>
-        <br/>
-        <div class="container">
-          <div class="row">
-            <div class="col-12 text-center">
-              <img src="../static/resources/images/spring-pivotal-logo.png" th:src="@{/resources/images/spring-pivotal-logo.png}"
-                alt="Sponsored by Pivotal"/></div>
-          </div>
-        </div>
       </div>
-  </div>
+  </main>
+  <footer class="container pet-clinic-footer">
+      <div class="row">
+          <div class="col-12 text-center">
+              <img src="../static/resources/images/spring-pivotal-logo.png" th:src="@{/resources/images/spring-pivotal-logo.png}"
+                   alt="Sponsored by Pivotal"/></div>
+      </div>
+  </footer>
 
   <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
   <script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
   <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-
+  <script>
+      var height = document.documentElement.clientHeight;
+      console.log(height);
+      var mainContainer = document.getElementById("main-container");
+      console.log(mainContainer);
+      mainContainer.style.minHeight = ((80/100) * height) + "px";
+  </script>
 </body>
 
 </html>
