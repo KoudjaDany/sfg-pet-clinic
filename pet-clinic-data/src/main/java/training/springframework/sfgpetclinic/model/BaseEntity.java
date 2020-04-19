@@ -23,6 +23,10 @@ public class BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    public boolean isNew(){
+        return this.id == null;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(", ", BaseEntity.class.getSimpleName() + "[", "]")

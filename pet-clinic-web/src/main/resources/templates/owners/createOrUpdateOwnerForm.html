@@ -4,6 +4,11 @@
 <body>
 
   <h2>Owner</h2>
+  <!-- That was my old way of writing form tag by mentioned the action which is the uri of the method of the controller which will process data-->
+  <!--  <form th:object="${owner}"  th:action="@{'/owners/'+${owner['new']? 'save':'update/' + owner.id}}"  class="form-horizontal" id="add-owner-form" method="post">-->
+
+  <!--The following is the new method, we don't need to mention the action at the only condition that both methods,
+the one  which lead on this form and the one which process data must have the same uri (It is just the http method which differs)-->
   <form th:object="${owner}" class="form-horizontal" id="add-owner-form" method="post">
     <div class="form-group has-feedback">
       <input

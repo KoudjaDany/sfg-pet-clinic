@@ -1,20 +1,20 @@
 package training.springframework.sfgpetclinic.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import training.springframework.sfgpetclinic.model.Owner;
 import training.springframework.sfgpetclinic.services.OwnerService;
 
+import javax.validation.Valid;
 import java.util.Set;
 
+@Slf4j
 @Controller
 @RequestMapping("/owners")
 public class OwnerController {
@@ -69,5 +69,41 @@ public class OwnerController {
         model.addAttribute("emptyList", isEmptyList);
         model.addAttribute("owners", owners);
         return "owners/ownersList";
+    }
+
+    // Both methods must have the same URI with just a difference on the HTTP Method used.
+    @RequestMapping("/create")
+    public String initCreateForm(Model model){
+        model.addAttribute("owner", Owner.builder().build());
+        return "owners/createOrUpdateOwnerForm";
+    }
+
+    @PostMapping("/create")
+    public String processCreateForm(@Valid Owner owner, BindingResult result){
+        if (result.hasErrors()){
+            return "owners/createOrUpdateOwnerForm";
+        }
+        Owner savedOwner = ownerService.save(owner);
+        log.debug("The owner of id: {} has been successfully created!", savedOwner.getId());
+        return "redirect:/owners/"+ savedOwner.getId();
+    }
+
+
+    // Both methods must have the same URI with just a difference on the HTTP Method used.
+    @RequestMapping("/update/{ownerId}")
+    public String initUpdateForm(@PathVariable Long ownerId, Model model){
+        model.addAttribute("owner", ownerService.findById(ownerId));
+        return "owners/createOrUpdateOwnerForm";
+    }
+
+    @PostMapping("/update/{ownerId}")
+    public String processUpdateForm(@Valid Owner owner, @PathVariable Long ownerId, BindingResult result){
+        if (result.hasErrors()){
+            return "owners/createOrUpdateOwnerForm";
+        }
+        owner.setId(ownerId);
+        Owner savedOwner = ownerService.save(owner);
+        log.debug("The owner of id: {} has been successfully updated!", savedOwner.getId());
+        return "redirect:/owners/"+ savedOwner.getId();
     }
 }
