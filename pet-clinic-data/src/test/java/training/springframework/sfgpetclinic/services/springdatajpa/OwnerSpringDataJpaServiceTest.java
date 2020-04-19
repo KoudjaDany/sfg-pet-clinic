@@ -96,4 +96,17 @@ class OwnerSpringDataJpaServiceTest {
         ownerService.deleteById(ownerId);
         verify(ownerRepository).deleteById(anyLong());
     }
+
+    @Test
+    void findByLastNameLike() {
+        Set<Owner> ownerSet = new HashSet<>();
+        ownerSet.add(Owner.builder().build());
+        ownerSet.add(Owner.builder().build());
+
+        when(ownerRepository.findByLastNameLike(anyString())).thenReturn(ownerSet);
+        Set<Owner> owners = ownerService.findByLastNameLike(TOTO);
+        assertNotNull(owners);
+        assertEquals(2, owners.size());
+        verify(ownerRepository).findByLastNameLike(anyString());
+    }
 }

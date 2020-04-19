@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import training.springframework.sfgpetclinic.model.Owner;
 import training.springframework.sfgpetclinic.services.OwnerService;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -88,21 +89,48 @@ class OwnerControllerTest {
     void findOwners() throws Exception {
         mockMvc.perform(get("/owners/find"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("not-implemented"));
+                .andExpect(view().name("owners/findOwners"))
+                .andExpect(model().attributeExists("owner"));
         verifyNoInteractions(ownerService);
     }
 
     @Test
-    void showOwner() throws Exception {
-        Owner owner = Owner.builder().id(1L).lastName("owner").firstName("owner").build();
+    void processFindFormReturnMany() throws Exception {
+        //Given
+        when(ownerService.findByLastNameLike(anyString())).thenReturn(owners);
+        //When
+        mockMvc.perform(get("/owners/search"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("owners/ownersList"))
+                .andExpect(model().attribute("owners", hasSize(2)));
+        //Then
 
+    }
+
+    @Test
+    void processFindFormReturnOne() throws Exception {
+        //Given
+        when(ownerService.findByLastNameLike(anyString())).thenReturn(Collections.singleton(Owner.builder().id(1L).lastName("lastName").build()));
+        //When
+        mockMvc.perform(get("/owners/search"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/owners/1"));
+        //Then
+    }
+
+    @Test
+    void showOwner() throws Exception {
+        //Given
+        Owner owner = Owner.builder().id(1L).lastName("owner").firstName("owner").build();
         when(ownerService.findById(anyLong())).thenReturn(owner);
 
+        //When
         mockMvc.perform(get("/owners/1"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("owner"))
                 .andExpect(view().name("owners/ownerDetails"));
-
+        //Then
         verify(ownerService,  only()).findById(anyLong());
     }
+
 }

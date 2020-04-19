@@ -26,6 +26,11 @@ public class OwnerSpringDataJpaService implements OwnerService {
     }
 
     @Override
+    public Set<Owner> findByLastNameLike(String lastName) {
+        return ownerRepository.findByLastNameLike(lastName);
+    }
+
+    @Override
     public Owner findById(Long id) {
         return ownerRepository.findById(id).orElseThrow(()->new EntityNotFoundException("No owner of id "+ id+ " found."));
     }

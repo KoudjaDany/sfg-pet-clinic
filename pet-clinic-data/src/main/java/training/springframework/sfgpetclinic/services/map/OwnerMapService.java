@@ -9,12 +9,15 @@ import training.springframework.sfgpetclinic.services.PetService;
 import training.springframework.sfgpetclinic.services.PetTypeService;
 
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Profile({"default", "map"})
 public class OwnerMapService extends AbstractMapService<Owner,Long> implements OwnerService {
 
     private PetService petService;
+    private PetTypeService petTypeService;
 
     public PetService getPetService() {
         return petService;
@@ -23,8 +26,6 @@ public class OwnerMapService extends AbstractMapService<Owner,Long> implements O
     public PetTypeService getPetTypeService() {
         return petTypeService;
     }
-
-    private PetTypeService petTypeService;
 
     public OwnerMapService(PetService petService, PetTypeService petTypeService) {
         this.petService = petService;
@@ -63,6 +64,14 @@ public class OwnerMapService extends AbstractMapService<Owner,Long> implements O
                 .filter(owner -> lastName.equalsIgnoreCase(owner.getLastName()))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public Set<Owner> findByLastNameLike(String lastName) {
+            return findAll()
+                .stream()
+                .filter(owner -> owner.getLastName().toLowerCase().contains(lastName.toLowerCase()))
+                .collect(Collectors.toSet());
     }
 
 }
