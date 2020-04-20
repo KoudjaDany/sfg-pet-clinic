@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.StringJoiner;
 
 @Getter
 @Setter
@@ -27,8 +26,6 @@ public class PetType extends BaseEntity{
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", PetType.class.getSimpleName() + "[", "]")
-                .add("name='" + name + "'")
-                .toString();
+        return name;
     }
 }

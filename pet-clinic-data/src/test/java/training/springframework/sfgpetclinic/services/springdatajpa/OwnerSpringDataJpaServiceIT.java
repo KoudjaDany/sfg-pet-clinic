@@ -12,7 +12,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
+@SpringBootTest(classes = {OwnerService.class, OwnerRepository.class}) //FIXME find how to implement integration tests with junit5.
 class OwnerSpringDataJpaServiceIT {
 
     OwnerService ownerService;

@@ -6,4 +6,6 @@ import training.springframework.sfgpetclinic.model.Pet;
 
 @Repository
 public interface PetRepository extends CrudRepository<Pet, Long> {
+
+
 }
