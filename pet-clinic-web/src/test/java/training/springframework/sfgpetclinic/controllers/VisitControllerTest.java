@@ -103,16 +103,33 @@ class VisitControllerTest {
     }
 
     @Test
-    void saveOrUpdateVisit() throws Exception {
+    void saveVisit() throws Exception {
         //Given
         //Given
         Pet pet = buildPet();
         when(petService.findById(anyLong())).thenReturn(pet);
         //When
-        mockMvc.perform(post("/owners/1/pets/1/visits/save"))
+        mockMvc.perform(post("/owners/1/pets/1/visits/add"))
                 .andExpect(model().attributeExists("pet"))
                 .andExpect(model().attributeExists("visit"))
-                .andExpect(view().name("redirect:/owners/details/1"))
+                .andExpect(view().name("redirect:/owners/1"))
+                .andExpect(status().is3xxRedirection());
+
+        //Then
+        verify(visitService).save(any());
+    }
+
+    @Test
+    void UpdateVisit() throws Exception {
+        //Given
+        //Given
+        Pet pet = buildPet();
+        when(petService.findById(anyLong())).thenReturn(pet);
+        //When
+        mockMvc.perform(post("/owners/1/pets/1/visits/update"))
+                .andExpect(model().attributeExists("pet"))
+                .andExpect(model().attributeExists("visit"))
+                .andExpect(view().name("redirect:/owners/1"))
                 .andExpect(status().is3xxRedirection());
 
         //Then
